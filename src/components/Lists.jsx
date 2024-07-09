@@ -56,7 +56,7 @@ const TodoList = () => {
 
   const handleAddItem = async (listId) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/todoitems/', { item: newItem, todolist: listId, priority }, {
+      const response = await axios.post('http://localhost:8000/api/items/', { item: newItem, todolist: listId, priority }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -79,7 +79,7 @@ const TodoList = () => {
 
   const handleDeleteItem = async (listId, itemId) => {
     try {
-      await axios.delete(`http://localhost:8000/api/todoitems/${itemId}/`, {
+      await axios.delete(`http://localhost:8000/api/items/${itemId}/`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -99,7 +99,7 @@ const TodoList = () => {
 
   const handleEditItem = async (listId, itemId) => {
     try {
-      const response = await axios.put(`http://localhost:8000/api/todoitems/${itemId}/`, { item: editText }, {
+      const response = await axios.put(`http://localhost:8000/api/items/${itemId}/`, { item: editText }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -141,12 +141,12 @@ const TodoList = () => {
       </div>
       {lists.map((list) => (
         <div key={list.id} className="box">
-          <h2 className="subtitle">List {list.name}</h2>
+          <h2 className="subtitle">List {list.title}</h2>
           <ul>
             {list.todoitem.map((item) => (
               <li key={item.id} className="block">
                 {editItem === item.id ? (
-                  <div className="field has-addons">
+                  <form className="field has-addons">
                     <div className="control is-expanded">
                       <input
                         className="input"
@@ -161,7 +161,7 @@ const TodoList = () => {
                     <div className="control">
                       <button className="button" onClick={() => setEditItem(null)}>Cancel</button>
                     </div>
-                  </div>
+                  </form>
                 ) : (
                   <div className="columns is-vcentered">
                     <div className="column">
@@ -174,7 +174,7 @@ const TodoList = () => {
                       }}>Edit</button>
                     </div>
                     <div className="column is-narrow">
-                      <button className="button is-small is-danger" onClick={() => handleDeleteItem(list, item)}>Delete</button>
+                      <button className="button is-small is-danger" onClick={() => handleDeleteItem(list.id, item.id)}>Delete</button>
                     </div>
                   </div>
                 )}
