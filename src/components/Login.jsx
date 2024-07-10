@@ -1,6 +1,7 @@
 import { useState } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
+
 import { toast } from 'react-toastify'
 
 
@@ -11,6 +12,7 @@ export default function Login() {
     email: '',
     password: '',
   })
+
 
   function handleChange(e) {
     const newFormData = structuredClone(formData)
@@ -26,7 +28,7 @@ export default function Login() {
 
       localStorage.setItem('token', token)
       toast.success('Login successful!');
-      navigate('/')
+      navigate('/lists')
     } catch (err) {
       toast.error(err.response.data.message);
       toast.error('login Failed')

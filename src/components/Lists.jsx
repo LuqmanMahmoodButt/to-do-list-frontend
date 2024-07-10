@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const initialState = {
+  newItem: ''
+};
 
 const TodoList = () => {
+  const [formData, setFormData] = useState(initialState);
   const [lists, setLists] = useState([]);
-  const [newItem, setNewItem] = useState('');
   const [newList, setNewList] = useState('');
   const [editItem, setEditItem] = useState(null);
   const [editText, setEditText] = useState('');
   const [priority, setPriority] = useState(0);
-
+  const [newItems, setNewItems] = useState({});
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -26,28 +29,35 @@ const TodoList = () => {
         console.error('Error fetching lists:', error);
       }
     }
-
-    const savedLists = localStorage.getItem('lists');
-    if (savedLists) {
-      setLists(savedLists);
-    } else {
-      fetchLists();
-    }
+   fetchLists();
   }, [token]);
+
+  const handleChange = (e, listId) => {
+    const { value } = e.target;
+    setNewItems((prevNewItems) => ({
+      ...prevNewItems,
+      [listId]: value
+    }));
+  };
+
+  const handleNewListChange = (e) => {
+    setNewList(e.target.value);
+  };
+
+  const handleEditChange = (e) => {
+    setEditText(e.target.value);
+  };
 
   const handleAddList = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/lists/', { 
-        title: newList}, {
+      const response = await axios.post('http://localhost:8000/api/lists/', {
+        title: newList
+      }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      setLists(prevLists => {
-        const updatedLists = structuredClone(prevLists);
-        updatedLists.push(response.data)
-        return updatedLists;
-      });
+      setLists(prevLists => [...prevLists, response.data]);
       setNewList('');
     } catch (error) {
       console.error('Error adding list:', error);
@@ -56,7 +66,7 @@ const TodoList = () => {
 
   const handleAddItem = async (listId) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/items/', { item: newItem, todolist: listId, priority }, {
+      const response = await axios.post('http://localhost:8000/api/items/', { item: newItems[listId], todolist: listId, priority }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -67,10 +77,12 @@ const TodoList = () => {
         if (list) {
           list.todoitem.push(response.data);
         }
-
         return updatedLists;
       });
-      setNewItem('');
+      setNewItems(prevNewItems => ({
+        ...prevNewItems,
+        [listId]: ''
+      }));
       setPriority(0);
     } catch (error) {
       console.error('Error adding item:', error);
@@ -99,8 +111,11 @@ const TodoList = () => {
 
   const handleEditItem = async (listId, itemId) => {
     try {
-      const response = await axios.put(`http://localhost:8000/api/items/${itemId}/`, { item: editText }, {
-        headers: {
+      const response = await axios.put(`http://localhost:8000/api/items/${itemId}/`, {
+        item: editText,
+        complete: false,
+        todolist: listId},
+          { headers: {
           'Authorization': `Bearer ${token}`
         }
       });
@@ -131,7 +146,7 @@ const TodoList = () => {
             className="input"
             type="text"
             value={newList}
-            onChange={(e) => setNewList(e.target.value)}
+            onChange={handleNewListChange}
             placeholder="Add new list"
           />
         </div>
@@ -146,17 +161,20 @@ const TodoList = () => {
             {list.todoitem.map((item) => (
               <li key={item.id} className="block">
                 {editItem === item.id ? (
-                  <form className="field has-addons">
+                  <form className="field has-addons" onSubmit={(e) => {
+                    e.preventDefault();
+                    handleEditItem(list.id, item.id);
+                  }}>
                     <div className="control is-expanded">
                       <input
                         className="input"
                         type="text"
                         value={editText}
-                        onChange={(e) => setEditText(e.target.value)}
+                        onChange={handleEditChange}
                       />
                     </div>
                     <div className="control">
-                      <button className="button is-primary" onClick={() => handleEditItem(list, item.id)}>Save</button>
+                      <button className="button is-primary" type="submit">Save</button>
                     </div>
                     <div className="control">
                       <button className="button" onClick={() => setEditItem(null)}>Cancel</button>
@@ -181,21 +199,24 @@ const TodoList = () => {
               </li>
             ))}
           </ul>
-          <div className="field has-addons">
+          <form className="field has-addons" onSubmit={(e) => {
+            e.preventDefault();
+            handleAddItem(list.id);
+          }}>
             <div className="control is-expanded">
               <input
                 className="input"
                 type="text"
-                value={newItem}
-                onChange={(e) => setNewItem(e.target.value)}
+                name="newItem"
+                value={newItems[list.id] || ''}
+                onChange={(e) => handleChange(e, list.id)}
                 placeholder="Add new item"
               />
-
             </div>
             <div className="control">
-              <button className="button is-primary" onClick={() => handleAddItem(list.id)}>Add</button>
+              <button className="button is-primary" type="submit">Add</button>
             </div>
-          </div>
+          </form>
         </div>
       ))}
     </div>

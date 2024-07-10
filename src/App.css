@@ -6,6 +6,27 @@
   text-align: center;
 }
 
+body {
+  background-color: rgb(17, 2, 83);
+}
+
+.hero {
+  background-size: cover;
+  background-position: center;
+}
+
+.title, .subtitle {
+  color: white;
+}
+
+ul {
+  text-align: left;
+}
+
+.image img {
+  border-radius: 8px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
