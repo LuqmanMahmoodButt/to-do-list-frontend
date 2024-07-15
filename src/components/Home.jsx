@@ -24,18 +24,7 @@ const HomePage = () => {
                 </figure>
               </div>
               <div className="column">
-                <h2 className="title">Quote of the day</h2>
-                <div>
-                  <p>"An organized space creates an organized mind. When you take the time to declutter and arrange your surroundings, you are investing in your own peace of mind and productivity. It's about creating a space where you can thrive, where creativity flows, and where you can accomplish your goals with clarity and ease."</p>
-                </div>
-              </div>
-            </div>
-          <div className="buttons">
-            <Link to="/Login" className="button is-large is-info">Log In</Link>
-          </div>
-            <div className="columns is-vcentered">
-              <div className="column">
-                <h2 className="title is-3">How It Works</h2>
+                <h2 className="title">How It Works</h2>
                 <h3>
                 Create the List
                 </h3>
@@ -48,6 +37,18 @@ const HomePage = () => {
                 Take Action
                 </h3>
                 <p>Check Off Completed Tasks: As you finish each task, mark it as completed. This provides a sense of accomplishment and motivates you to keep going.</p>
+                <div>
+                </div>
+              </div>
+            </div>
+          <div className="buttons">
+            <Link to="/Login" className="button is-large is-info">Log In</Link>
+          </div>
+            <div className="columns is-vcentered">
+              <div className="column">
+                <h2 className="title is-3">Quote of the day</h2>
+                  <p>"An organized space creates an organized mind. When you take the time to declutter and arrange your surroundings, you are investing in your own peace of mind and productivity. It's about creating a space where you can thrive, where creativity flows, and where you can accomplish your goals with clarity and ease."</p>
+
               </div>
               <div className="column">
                 <figure className="image">

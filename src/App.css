@@ -74,7 +74,7 @@ li:last-child {
 }
 
 .has-text-grey {
-  color: #7f8c8d; /* Modern grey color */
+  color: #000000; /* Modern grey color */
   font-size: 15px;
 
 }
@@ -235,7 +235,7 @@ li:last-child {
 }
 
 .navbar {
-  background-color: #3498db; /* Modern blue color */
+  background-color: #000000; /* Modern blue color */
   color: #ffffff;
 }
 
@@ -255,3 +255,4 @@ li:last-child {
 .label {
   color: black;
 }
+
