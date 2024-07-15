@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseUrl} from "../config"
+import { toast } from 'react-toastify'
+
 
 const TodoList = () => {
   const [lists, setLists] = useState([]);
@@ -63,6 +65,7 @@ const TodoList = () => {
       });
       setLists(prevLists => [...prevLists, response.data]);
       setNewList('');
+      toast.success('List Added');
     } catch (error) {
       console.error('Error adding list:', error);
     }
@@ -76,6 +79,7 @@ const TodoList = () => {
         }
       });
       setLists(prevLists => prevLists.filter(list => list.id !== listId));
+      toast.error('List Deleted');
     } catch (error) {
       console.error('Error deleting list:', error);
     }
@@ -116,7 +120,7 @@ const TodoList = () => {
         ...prevDueDates,
         [listId]: ''
       }));
-  
+      toast.success('Item Added');
     } catch (error) {
       console.error('Error adding item:', error);
     }
@@ -137,6 +141,7 @@ const TodoList = () => {
         }
         return updatedLists;
       });
+      toast.error('Item Deleted!');
     } catch (error) {
       console.error('Error deleting item:', error);
     }
