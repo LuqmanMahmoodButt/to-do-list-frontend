@@ -26,11 +26,20 @@ const Navbar = () => {
       <div className="navbar-end">
         <div className="navbar-item">
           <div className="buttons">
-            {!isLoggedIn && <Link to="/" className="button">Home</Link>}
-            {!isLoggedIn && <Link to="/signup" className="button">Signup</Link>}
-            {!isLoggedIn && <Link to="/login" className="button">Login</Link>}
-            {isLoggedIn && <Link to="/lists" className="button">To do list</Link>}
-            {isLoggedIn && <button className="button" onClick={logout}>Logout</button>}
+            {isLoggedIn ? (
+              <>
+                <Link to="/userhome" className="button">Home</Link>
+                <Link to="/lists" className="button">To do list</Link>
+                <button className="button" onClick={logout}>Logout</button>
+              </>
+            ) : (
+              <>
+                <Link to="/" className="button">Home</Link>
+                <Link to="/signup" className="button">Signup</Link>
+                <Link to="/login" className="button">Login</Link>
+              </>
+            )}
+         
           </div>
         </div>
       </div>

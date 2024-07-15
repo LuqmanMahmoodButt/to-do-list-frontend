@@ -1,6 +1,7 @@
 import { useState } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
+import { baseUrl} from "../config"
 
 import { toast } from 'react-toastify'
 
@@ -23,24 +24,26 @@ export default function Login() {
   async function handleSubmit(e) {
     e.preventDefault()
     try {
-      const { data } = await axios.post(`http://localhost:8000/api/auth/login/`, formData)
+      const { data } = await axios.post(`${ baseUrl}/api/auth/login/`, formData)
       const token = data.token
 
       localStorage.setItem('token', token)
       toast.success('Login successful!');
-      navigate('/lists')
+      navigate('/userhome')
     } catch (err) {
       toast.error(err.response.data.message);
       toast.error('login Failed')
     }
   }
 
-  return <div className="section">
-    <div className="container is-fullhd">
-      <form onSubmit={handleSubmit}>
-        <div className="field">
-          <label className="label">Email</label>
-          <div className="control">
+  return (
+    <div className="container is-flex is-justify-content-center is-align-items-center" style={{ minHeight: '100vh' }}>
+      <div className="box" style={{ width: '400px' }}>
+        <h1 className="title has-text-centered">Sign In</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="field">
+            <label className="label">Username</label>
+            <div className="control">
             <input
               className="input"
               type="text"
@@ -48,22 +51,29 @@ export default function Login() {
               onChange={handleChange}
               value={formData.email}
             />
+            </div>
           </div>
-        </div>
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input
-              className="input"
-              type="password"
-              name={'password'}
-              onChange={handleChange}
-              value={formData.password}
-            />
+          <div className="field">
+            <label className="label">Password</label>
+            <div className="control">
+              <input
+                className="input"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
-        </div>
-        <button className="button">Submit</button>
-      </form>
+          <div className="field">
+            <div className="control">
+              <button className="button is-primary is-fullwidth" type="submit">Sign In</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-}
+  );
+};
+
