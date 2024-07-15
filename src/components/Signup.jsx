@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { baseUrl} from "../config"
+import { ToastContainer, toast } from 'react-toastify';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -15,17 +16,17 @@ const SignUp = () => {
       [e.target.name]: e.target.value,
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${ baseUrl}/api/auth/register/`, formData);
-      console.log(response.data);
+      const response = await axios.post(`${baseUrl}/api/auth/register/`, formData);
+      toast.success('Registration successful!');
+      console.log(response.data); // Optional: keep this if you want to log the response
     } catch (error) {
-      console.error('Error during sign-up:', error);
+      toast.error(error.response?.data?.message || 'Registration failed');
+      console.error('Error during sign-up:', error); // Optional: keep this if you want to log the error
     }
   };
-
   return (
     <div className="container is-flex is-justify-content-center is-align-items-center" style={{ minHeight: '100vh' }}>
       <div className="box" style={{ width: '400px' }}>

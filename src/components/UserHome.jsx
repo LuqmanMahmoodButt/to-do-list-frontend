@@ -43,22 +43,21 @@ const UserHome = () => {
                     </figure>
                   </div>
                   <div className="column">
-                    <div className='title'>Features</div>
-                    <ul>
-                      <li>Create and manage multiple todo lists</li>
-                      <li>Add, edit, and delete items with priority levels</li>
-                      <li>Organize tasks efficiently</li>
-                      <li>Track your productivity</li>
-                    </ul>
+                    <div className='title'>"They Say"</div>
+                    <div>
+                      <p>"Organizing isn't about perfection; it's about efficiency, reducing stress and clutter, saving time and money, and improving your overall quality of life. When you get organized, you reclaim control over your environment and your time, which allows you to focus on what truly matters."</p>
+                      
+                    </div>
                   </div>
                 </div>
                 <div className="columns is-vcentered">
                   <div className="column">
-                    <div className="title">How It Works</div>
+                    <div className="title">"They Say"</div>
                     <p>
-                      Our Todo App helps you keep track of your tasks with ease. 
-                      Simply create a list, add your tasks, and set their priorities. 
-                      You can edit or delete tasks as you progress.
+                    The best way to get something done is to begin. 
+                    Start by getting yourself organized. Establish a sense of order and structure. Create a plan, 
+                    set goals, and prioritize your tasks. When your environment and mind are clear, 
+                    he path to achieving your objectives becomes much smoother and more manageable."
                     </p>
                   </div>
                   <div className="column">

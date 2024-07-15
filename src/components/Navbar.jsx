@@ -23,13 +23,13 @@ const Navbar = () => {
 
   return <nav className="navbar">
     <div className="navbar-menu is-active">
-      <div className="navbar-end">
+      <div className="navbar">
         <div className="navbar-item">
           <div className="buttons">
             {isLoggedIn ? (
               <>
                 <Link to="/userhome" className="button">Home</Link>
-                <Link to="/lists" className="button">To do list</Link>
+                <Link to="/lists" className="button">Todo List</Link>
                 <button className="button" onClick={logout}>Logout</button>
               </>
             ) : (

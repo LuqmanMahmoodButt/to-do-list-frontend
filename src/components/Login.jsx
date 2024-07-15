@@ -32,7 +32,7 @@ export default function Login() {
       navigate('/userhome')
     } catch (err) {
       toast.error(err.response.data.message);
-      toast.error('login Failed')
+      toast.error('Login Failed')
     }
   }
 
@@ -42,7 +42,7 @@ export default function Login() {
         <h1 className="title has-text-centered">Sign In</h1>
         <form onSubmit={handleSubmit}>
           <div className="field">
-            <label className="label">Username</label>
+            <label className="label">Email</label>
             <div className="control">
             <input
               className="input"

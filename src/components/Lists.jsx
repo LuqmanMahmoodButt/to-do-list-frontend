@@ -147,7 +147,7 @@ const TodoList = () => {
       const response = await axios.put(`${ baseUrl}/api/items/${itemId}/`, {
         item: editText,
         todolist: listId,
-        due_date: dueDate[listId] // Include due date in the request
+        // due_date: dueDate[listId] // Include due date in the request
       },
         {
           headers: {
@@ -221,10 +221,36 @@ const TodoList = () => {
       </div>
       {lists.map((list) => (
         <div key={list.id} className="box">
-          <h2 className="subtitle">List {list.title}</h2>
           <div className="buttons mb-3">
             <button className="button is-danger" onClick={() => handleDeleteList(list.id)}>Delete List</button>
           </div>
+          <h2 className="subtitle">{list.title}</h2>
+          <form className="field has-addons mt-3" onSubmit={(e) => {
+            e.preventDefault();
+            handleAddItem(list.id);
+          }}>
+            <div className="control is-expanded">
+              <input
+                className="input"
+                type="text"
+                name="newItem"
+                value={newItems[list.id] || ''}
+                onChange={(e) => handleChange(e, list.id)}
+                placeholder="Add new item"
+              />
+            </div>
+            <div className="control">
+              <input
+                className="input"
+                type="date"
+                value={dueDate[list.id] || ''}
+                onChange={(e) => handleDueDateChange(e, list.id)}
+              />
+            </div>
+            <div className="control">
+              <button className="button is-primary is-small" type="submit">Add Item</button>
+            </div>
+          </form>
           <ul>
             {list.todoitem.map((item) => (
               <li key={item.id} className="block">
@@ -242,10 +268,10 @@ const TodoList = () => {
                       />
                     </div>
                     <div className="control">
-                      <button className="button is-primary" type="submit">Save</button>
+                      <button className="button is-primary is-small" type="submit">Save</button>
                     </div>
                     <div className="control">
-                      <button className="button" onClick={() => setEditItem(null)}>Cancel</button>
+                      <button className="button is-small is-danger" onClick={() => setEditItem(null)}>Cancel</button>
                     </div>
                   </form>
                 ) : (
@@ -281,32 +307,7 @@ const TodoList = () => {
               </li>
             ))}
           </ul>
-          <form className="field has-addons mt-3" onSubmit={(e) => {
-            e.preventDefault();
-            handleAddItem(list.id);
-          }}>
-            <div className="control is-expanded">
-              <input
-                className="input"
-                type="text"
-                name="newItem"
-                value={newItems[list.id] || ''}
-                onChange={(e) => handleChange(e, list.id)}
-                placeholder="Add new item"
-              />
-            </div>
-            <div className="control">
-              <input
-                className="input"
-                type="date"
-                value={dueDate[list.id] || ''}
-                onChange={(e) => handleDueDateChange(e, list.id)}
-              />
-            </div>
-            <div className="control">
-              <button className="button is-primary" type="submit">Add</button>
-            </div>
-          </form>
+          
         </div>
       ))}
     </div>
