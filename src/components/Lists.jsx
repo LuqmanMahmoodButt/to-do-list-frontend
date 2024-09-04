@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { baseUrl} from "../config"
+import { baseUrl } from "../config"
 import { toast } from 'react-toastify'
 
 
@@ -16,7 +16,7 @@ const TodoList = () => {
   useEffect(() => {
     async function fetchLists() {
       try {
-        const resp = await fetch(`${ baseUrl}/api/lists/`, {
+        const resp = await fetch(`${baseUrl}/api/lists/`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -56,7 +56,7 @@ const TodoList = () => {
 
   const handleAddList = async () => {
     try {
-      const response = await axios.post(`${ baseUrl}/api/lists/`, {
+      const response = await axios.post(`${baseUrl}/api/lists/`, {
         title: newList
       }, {
         headers: {
@@ -73,7 +73,7 @@ const TodoList = () => {
 
   const handleDeleteList = async (listId) => {
     try {
-      await axios.delete(`${ baseUrl}/api/lists/${listId}/`, {
+      await axios.delete(`${baseUrl}/api/lists/${listId}/`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -87,7 +87,7 @@ const TodoList = () => {
 
   const handleAddItem = async (listId) => {
     try {
-      const response = await axios.post(`${ baseUrl}/api/items/`, {
+      const response = await axios.post(`${baseUrl}/api/items/`, {
         item: newItems[listId],
         todolist: listId,
         due_date: dueDate[listId]
@@ -96,7 +96,7 @@ const TodoList = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-  
+
       // Update the lists state to include the new item
       setLists(prevLists => {
         const updatedLists = prevLists.map(list => {
@@ -110,7 +110,7 @@ const TodoList = () => {
         });
         return updatedLists;
       });
-  
+
       // Reset input fields and state
       setNewItems(prevNewItems => ({
         ...prevNewItems,
@@ -128,7 +128,7 @@ const TodoList = () => {
 
   const handleDeleteItem = async (listId, itemId) => {
     try {
-      await axios.delete(`${ baseUrl}/api/items/${itemId}/`, {
+      await axios.delete(`${baseUrl}/api/items/${itemId}/`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -149,7 +149,7 @@ const TodoList = () => {
 
   const handleEditItem = async (listId, itemId) => {
     try {
-      const response = await axios.put(`${ baseUrl}/api/items/${itemId}/`, {
+      const response = await axios.put(`${baseUrl}/api/items/${itemId}/`, {
         item: editText,
         todolist: listId,
         // due_date: dueDate[listId] // Include due date in the request
@@ -181,7 +181,7 @@ const TodoList = () => {
     try {
       const listIndex = lists.findIndex(list => list.id === listId);
       const itemIndex = lists[listIndex].todoitem.findIndex(item => item.id === itemId);
-      const response = await axios.put(`${ baseUrl}/api/items/${itemId}/`, {
+      const response = await axios.put(`${baseUrl}/api/items/${itemId}/`, {
         item: lists[listIndex].todoitem[itemIndex].item,
         complete: !lists[listIndex].todoitem[itemIndex].complete,
         todolist: listId,
@@ -312,7 +312,7 @@ const TodoList = () => {
               </li>
             ))}
           </ul>
-          
+
         </div>
       ))}
     </div>

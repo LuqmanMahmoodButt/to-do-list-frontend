@@ -26,28 +26,28 @@ const HomePage = () => {
               <div className="column">
                 <h2 className="title">How It Works</h2>
                 <h3>
-                Create the List
+                  Create the List
                 </h3>
                 <p>Write Down Tasks: Start by listing all the tasks you need to accomplish. These can range from daily chores to long-term projects.</p>
                 <h3>
-                Set Deadlines
+                  Set Deadlines
                 </h3>
                 <p>Assign Due Dates: Allocate specific deadlines for each task to create a sense of urgency and help with time management.</p>
                 <h3>
-                Take Action
+                  Take Action
                 </h3>
                 <p>Check Off Completed Tasks: As you finish each task, mark it as completed. This provides a sense of accomplishment and motivates you to keep going.</p>
                 <div>
                 </div>
               </div>
             </div>
-          <div className="buttons">
-            <Link to="/Login" className="button is-large is-info">Log In</Link>
-          </div>
+            <div className="buttons">
+              <Link to="/Login" className="button is-large is-info">Log In</Link>
+            </div>
             <div className="columns is-vcentered">
               <div className="column">
                 <h2 className="title is-3">Quote of the day</h2>
-                  <p>"An organized space creates an organized mind. When you take the time to declutter and arrange your surroundings, you are investing in your own peace of mind and productivity. It's about creating a space where you can thrive, where creativity flows, and where you can accomplish your goals with clarity and ease."</p>
+                <p>"An organized space creates an organized mind. When you take the time to declutter and arrange your surroundings, you are investing in your own peace of mind and productivity. It's about creating a space where you can thrive, where creativity flows, and where you can accomplish your goals with clarity and ease."</p>
 
               </div>
               <div className="column">
